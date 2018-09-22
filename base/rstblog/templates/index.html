@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load rstblog_extras %}
+
+{% block title %}
+Index about {% if not category %} all categories {% else %} {{category}} category {% endif %}
+{% endblock %}
+
+{% block meta %}
+    <meta name="generator" content="rstsblog">
+    <meta name="author" content="luciano de falco alfano">
+{% endblock %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block link %}
+    <link rel="alternate" hreflang="x-default" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
+
+{% block content %}
+    <div class="container" style="background-color:WhiteSmoke;">
+        <h3 class="hindex">Indexing {{ articles|length }}
+                           {% if home %}<i>newer</i>&nbsp;{% endif %}{{ atype }}{{ articles|length|pluralize }}
+                           about {% if not category %} 
+                                     all categories
+                                 {% else %}
+                                     <i>{{category}}</i> category
+                                 {% endif %}
+                                     </h3>
+        
+        {% for article in articles %}
+        
+            <div style="margin:10px 0px;overflow:auto;background-color:White;box-shadow:1px 1px LightGrey;">
+                <div style="clear:both;">
+                    <h5 style="margin:1px; padding:2px">
+                        <a href="{% url 'rstblog:show' article.slug %}">{{ article.title }}</a>
+                    </h5>
+                    
+                    <p class="container-fluid hidden-xs pattributes" style="margin:1px; padding:2px">
+                        {% if article.hit %}
+                            <i>Read</i> {{ article.hit }} times
+                            {% if article.created %} ;&nbsp;&nbsp;&nbsp; {% endif %}
+                        {% endif %}
+                        {% if article.created %} 
+                            <i>Created</i> on {{ article.created|date:"d M Y" }}
+                            {% if article.modified %} ;&nbsp;&nbsp;&nbsp; {% endif %}
+                        {% endif %}
+                        {% if article.modified %}
+                            <i>Modified</i> on {{ article.modified|date:"d M Y" }}
+                        {% endif %}
+                        {% for key, value in translations.items %}
+                            {% if key == article.title %}
+                                ;&nbsp;&nbsp;&nbsp;
+                                <!-- <span style="border: 1px solid red; border-radius: 2px;"> <b>Translation{{ value|length|pluralize }}</b>: &nbsp; -->
+                                <span><b>Translation{{ value|length|pluralize }}</b>:&nbsp; 
+                                {% for language, slug in value %}
+                                    <a href="{% url 'rstblog:show' slug %}">{{ language }}</a>
+                                    {% if not forloop.last%}&comma;&nbsp;{% endif %}
+                                {% endfor %}
+                                </span>
+                            {% endif %}
+                        {% comment %}
+                        {% endcomment %}
+                        {% endfor %}
+                    </p>
+                </div>
+                <div>
+                {% if article.image != None %}
+                    <div style="float:left;">
+                        {% with "/media/images/"|add:article.image as img %}
+                            <img class="container-fluid hidden-xs soiola" src="{{ img }}" alt="{{article.image}}" style="width:120px;">
+                            <!-- <img  src="{{ img }}" alt="{{article.image}}" style="width:100px;border:0;padding:0;"> -->
+                        {% endwith %}
+                    </div>
+                {% endif %}
+                    <div>
+                            {% if article.summary %}
+                                <p class="psummary" style="padding:2px;">{{ article.summary }}</p>
+                            {% endif %}
+                    </div>
+                </div>
+            </div>
+        {% empty %}
+            <div><p> Sorry. No articles by now.</p></div>
+        {% endfor %}
+    </div>
+{% endblock %}

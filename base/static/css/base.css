@@ -1,0 +1,59 @@
+/* base.css */
+.rsts-header {
+    /*border:1px solid;*/
+    margin:1px;
+    padding:1px;
+    /*overflow:auto;*/
+}
+
+.rsts-brand {
+    margin:0px;
+    padding:0px;
+    /*border:1px solid red;*/
+    float:left;
+}
+
+.soiola {
+    margin:0px;
+    padding: 1px 5px !important;
+    /*padding-top:0px;
+    padding-bottom:0px;
+    padding-left:5px;
+    padding-right:5px;*/
+    min-height:0px;
+}
+
+.nitem-size {
+    font-size: small;
+}
+
+/*h1{
+    font-size: large;
+    font-weight: bold;
+    font-style: italic;
+}*/
+
+pre.code{
+    margin-left:5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+}
+
+.hindex{
+    margin-top:1rem;
+}
+
+.pattributes{
+    margin-bottom:0.5rem;
+    font-size: x-small;
+}
+
+.psummary{
+    font-size: small;
+}
+
+.photo{
+    height: auto;
+    width: 80%;
+    object-fit: contain;
+}

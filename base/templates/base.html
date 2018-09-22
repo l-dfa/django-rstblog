@@ -1,0 +1,91 @@
+{% load i18n %}
+{% load staticfiles %}
+
+<!doctype  html>
+<html lang="en">
+  <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <meta name="abstract" content="{{ ABSTRACT }}">
+      {% block meta %}
+          <meta name="generator" content="rstsite">
+      {% endblock %}
+      
+      <title>{% block title %}Title{% endblock %}</title>
+      
+      <!-- Core CSS - Include with every page -->
+          <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
+          <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootswatch/3.3.7/simplex/bootstrap.min.css">
+          <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+          <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+      <link rel="stylesheet" href="{% static 'css/base.css' %}">
+      <link rel="stylesheet" href="{% static 'css/pygments.css' %}">
+
+      {% block stylesheet %}
+      {% endblock %}
+      
+      <link rel="icon" type="image/ico" href="{% static 'images/favicon.ico' %}" />
+      {% block link %}
+      {% endblock %}
+      
+  </head>
+  <body>
+    <header>
+        <!--<div class="container" style="border: 2px solid blue;">-->
+        <div class="container">
+            <!--<div class="navbar row">-->
+            {% include "navbar.html" %}
+        </div>
+    </header>
+
+    <!--        BODY        -->
+    <!--<div class="container" style="border: 2px solid red;">-->
+    <div class="container">
+        {% if messages %}
+            <div style="background-color: AliceBlue;">
+              <ul style="list-style-type: none; margin: 0;">
+                {% for message in messages %}
+                  <li {% if message.tags %} class="msg-tag-{{ message.tags }}" {% endif %} {% if message.level_tag %} class="msg-lev-{{ message.level_tag }}" {% endif %} >
+                      {{message}}
+                  </li>
+                {% endfor %}
+              </ul>
+            </div>
+        {% endif %}
+
+        {% block content %}                                                 <!-- HERE the body of html pages !!! -->
+        {% endblock %}
+    </div>
+    
+
+    
+    <!--        FOOTER        -->
+    <footer>
+        <!--<div class="continer" style="border: 2px solid green;"> -->
+        <div class="container" style="font-size:x-small;font-style:italic;">
+            <hr class="soiola">
+            {% if WSUBTITLE %}
+            <div> <p> {{ WSUBTITLE }} </p> </div>
+            {% endif %}
+            <div class="container-fluid hidden-xs" style="padding:0;">
+                <p >Powered by
+                    <a href="https://github.com/l-dfa/base_rstblog" target="_blank">rstblog</a>,
+                    &nbsp;using:
+                    <a href="https://www.python.org/" target="_blank">Python</a>,
+                    <a href="https://www.djangoproject.com/" target="_blank">Django</a> and
+                    <a href="https://pypi.org/project/docutils/#description" target="_blank">Docutils</a>
+                    {% if WLICENSE %}
+                        <span style="float:right;">
+                        Under a <a rel="license" href="{{ WLICENSEREF }}" target="_blank">{{ WLICENSE }}</a>
+                        </span>
+                    {% endif %}
+                </p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Core SCRIPTS - Include with every page -->
+    {% block javascript %}
+    {% endblock %}
+  </body>
+</html>

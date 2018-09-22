@@ -1,0 +1,57 @@
+{% load staticfiles %}
+
+<div class="rsts-header">
+  <div class="rsts-brand">
+    <a class="navbar-brand soiola" href="/">
+        <img src="{% static 'images/world.svg' %}" alt="website" style="width:52px;height:52px;border:0;padding:0;">
+    </a>
+  </div>
+  <div class="soiola" style="float:left;">
+    <div class="container-fluid hidden-xs soiola">
+      <h4 class="soiola" style="text-align:center;color:DarkSlateBlue;">{{ WTITLE }}
+      </h4>
+    </div>
+    <nav class="navbar navbar-default soiola">
+      <div class="container-fluid">
+        <div class="navbar-header" >
+          <button type="button" class="navbar-toggle" style="float:right;" data-toggle="collapse" data-target="#ldfaNavbar">
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <!-- <a class="navbar-brand" href="#" style="margin:0px;padding:0px 0px;"></a> -->
+        </div>
+        <div class="collapse navbar-collapse soiola" id="ldfaNavbar">
+          <ul class="nav navbar-nav soiola">
+
+            <li class="dropdown soiola">        <!-- Articles list by Category (AbC) submenu -->
+              <a class="dropdown-toggle soiola nitem-size" data-toggle="dropdown" href="#">Articles by category<span class="caret"></span></a>
+              <ul class="dropdown-menu soiola">
+                  <li class="nav-item {%if page_id == 'index  article' %}active{% endif %} soiola">  <!-- AbC submenu / All categories -->
+                    <a class="nav-link soiola nitem-size" href="{% url 'rstblog:index_all_categories' 'article' %}" style="border:0;padding:2px;">all categories</a>
+                  </li>
+                  <li class="divider"><hr></li>
+                  {% for atype, at_categories in categories.items %}
+                    {% if atype == 'article' %}
+                      {% for category in at_categories %}
+                        {% with "index "|add:category|add:" "|add:atype as pid %}
+                          <li class="nav-item {%if page_id == pid %}active{% endif %} soiola">  <!-- LbC submenu / category -->
+                            <a class="nav-link soiola nitem-size" href="{% url 'rstblog:index_category' category atype %}" style="border:0;padding:2px;">{{category}}</a>
+                          </li>
+                        {% endwith %}
+                      {% endfor %}
+                    {% endif %}
+                  {% endfor %}
+              </ul>
+            </li>
+          
+            <li class="nav-item {%if page_id == 'rstblog:show_stats' %}active{% endif %} soiola">  <!-- Statistics -->
+              <a class="nav-link soiola nitem-size" href="{% url 'rstblog:show_stats' %}" style="border:0;padding:0px 5px;">Statistics</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>
+

@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block title %}
+    Statistics about blog articles
+{% endblock %}
+
+{% block meta %}
+    <meta name="author" content="luciano de falco alfano">
+    <link rel="alternate" hreflang="x-default" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block content %}
+    <!--<div style="border: 2px solid green; padding:0px 5px;">-->
+    <div>
+    <h3 class="hindex">Blog statistics</h3>
+        {% for key, stats in all_stats.items %}
+            <h4><i>{{ key }}</i> section</h4>
+            <p>Number of <i>original</i> (not translations of) {{key}}s: {{ stats.n }}</p>
+            <p>Number of translations of original {{key}}: {{ stats.nt }}</p>
+            <p>Number of used languages: {{ stats.sl|length }}&nbsp;
+                 (&nbsp;{% for l in stats.sl %}
+                     {{ l }}{% if not forloop.last %}&comma;&nbsp;{% endif %}
+                   {% endfor %}
+                 &nbsp;)
+            </p>
+            <p>Number of used categories: {{ stats.sc|length }}&nbsp;
+                 ( {% for c in stats.sc %}
+                     {{ c }}{% if not forloop.last %}&comma;&nbsp;{% endif %}
+                   {% endfor %}
+                 )
+            </p>
+            <p>Number of {{ key }}s over category:</p>
+            <ul>
+            {% for k, v in stats.items %}
+                {% if k in stats.sc %}
+                    <li><a href="{% url 'rstblog:index_category' k key %}">{{ k }}</a>:&nbsp;&nbsp;(&nbsp;
+                        {% for lk, lv in v.items %}
+                            {{ lk }}: {{ lv }}{% if not forloop.last %}&comma;&nbsp;{% endif %}
+                        {% endfor %}
+                        &nbsp;)
+                    </li>
+                {% endif %}
+                {% comment %}
+                {% endcomment %}
+            {% endfor %}
+            </ul>
+        {% endfor %}
+    </div>
+{% endblock %}

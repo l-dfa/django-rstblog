@@ -1,0 +1,4 @@
+world.svg, world.png and favicon.ico are from
+https://publicdomainvectors.org/en/free-clipart/America-world-globe-vector-clip-art/27427.html
+
+license:public domain

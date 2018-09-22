@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+
+{% block meta %}
+    <meta name="author" content="luciano de falco alfano">
+    <link rel="alternate" hreflang="x-default" href="{{ request.build_absolute_uri }}" />
+{% endblock %}
+
+
+{% block content %}
+  <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <p>&nbsp;</p>
+      <p> Select article to load: <input type="file" name="article"> </p>
+      <p> <button type="submit">Upload</button> </p>
+  </form>
+{% endblock %}

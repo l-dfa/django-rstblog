@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+{% load i18n %}
+{% load staticfiles %}
+{% load fullurl %}
+
+{% if infos.title %} {% block title %} {{ infos.title }} {% endblock %}
+{% endif %}
+
+
+{% block meta %}
+    <meta name="generator" content="rstsite">
+    {% if infos %}
+        {% for key, value in infos.items %}
+             {% if key == 'title' %}
+             {% elif key == 'slug' %}
+             {% elif key == 'markup' %}
+             {% elif key == 'language' %}
+                 <meta name="language" content="{{ value }}">
+             {% elif key == 'authors' %}
+                 <meta name="author" content="{% for author in value %}{{ author }}{% if not forloop.last %}, {% endif %}{% endfor %}">
+             {% else %}
+                 <meta name="{{ key }}" content="{{ value }}">
+             {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if translations %} {% endif %}
+
+{% endblock %}
+
+
+{% block stylesheet %}
+{% endblock %}
+
+{% block link %}
+    {% if infos %}
+        {% for key, value in infos.items %}
+             {% if key == 'language' %}
+                 <link rel="alternate" hreflang="{{ value }}" href="{{ request.build_absolute_uri }}" />
+             {% endif %}
+        {% endfor %}
+    {% endif %}
+    {% if translations %}
+        {% for language, slug, lang in translations %}
+            <link rel="alternate" hreflang="{{ lang }}" href="{% fullurl 'rstblog:show' slug %}" />
+        {% endfor %}
+    {% endif %}
+
+{% endblock %}
+
+
+
+
+{% block content %}
+    <div style="margin: 5px; padding:5px;">
+    {% if article or translations %}
+        <div style="margin:5px;padding:5px;border: 1px solid black; border-radius: 2px;">
+            <p style="font-size: x-small;margin-bottom:0px;">
+                {% if article.author %}
+                    <i>By</i> {{ article.author.name }}
+                    {% if article.created %} ;&nbsp;&nbsp;&nbsp; {% endif %}
+                {% endif %}
+                {% if article.created %}
+                    <i>Created</i> on {{ article.created|date:"d M Y" }}
+                    {% if article.modified %} ;&nbsp;&nbsp;&nbsp; {% endif %}
+                {% endif %}
+                {% if article.modified %}
+                    <i>Modified</i> on {{ article.modified|date:"d M Y" }}
+                    {% if translations %} ;&nbsp;&nbsp;&nbsp; {% endif %}
+                {% endif %}
+                {% if translations %}
+                    <span> <b>Translation{{ translations|length|pluralize }}</b>:&nbsp; 
+                    {% for language, slug, lang in translations %}
+                        <a href="{% url 'rstblog:show' slug %}">{{ language }}</a>
+                        {% if not forloop.last%}&comma;&nbsp; {% endif %}
+                    {% endfor %}
+                    </span>
+                    {% comment %}
+                    {% endcomment %}
+                {% endif %}
+            </p>
+        </div>
+    {% endif %}
+
+        <div>
+            {{ content |safe }}
+        </div>
+    </div>
+{% endblock %}

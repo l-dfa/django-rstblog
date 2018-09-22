@@ -1,0 +1,80 @@
+{% extends 'base.html' %}
+{% load staticfiles %}
+{% load i18n %}
+
+            
+{% block content %}
+    {% if messages %}
+    <div class="container">
+        <div class="u-full-width">
+            <ul class="messages">
+                {% for message in messages %}
+                <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% endif %}
+        
+    {% if form.errors %}
+    <div class="container">
+        <div class="u-full-width">
+            <p>Your username and password didn't match. Please try again.</p>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if next %}
+    <div class="container">
+        <div class="u-full-width">
+        {% if user.is_authenticated %}
+            <p>
+                Your account doesn't have access to this page. To proceed,
+                please login with an account that has access.
+            </p>
+        {% else %}
+            {% if debug %}<p>Please login to see this page.</p>{% endif %}
+        {% endif %}
+        </div>
+    </div>
+    {% endif %}
+    
+    <div class="container" style="margin-top:30px;">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="login-panel panel panel-default">
+                    <div class="panel-heading">
+                        <!-- <h3 class="panel-title">Please Sign In</h3> -->
+                        <h5 class="panel-title">Please Sign In"</h5>
+                    </div>
+                    <div class="panel-body">
+                        <form method="post" action="{% url 'login' %}" class="log-in">
+                            {% csrf_token %}
+    
+                            <p class="bs-component">
+                                <table>
+                                    <tr>
+                                        <td>{{ form.username.label_tag }}</td>
+                                        <td>{{ form.username }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td>{{ form.password.label_tag }}</td>
+                                        <td>{{ form.password }}</td>
+                                    </tr>
+                                </table>
+                            </p>
+                            <p class="bs-component">
+                                <center>
+                                    <input class="btn btn-success btn-sm btn-login" type="submit" value="Login" />
+                                </center>
+                            </p>
+                            <input type="hidden" name="next" value="{{ next }}" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}
+
