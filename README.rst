@@ -74,8 +74,7 @@ A (not so) quick start
 
 1. With a virtual env activated, load the needed requirements::
 
-    pip install -r requirements.txt
-    pip install C:/Dati/Studio/Sviluppi/django-rstblog/django-rstblog/dist/django-rstblog-0.1.tar.gz
+    pip install django-rstblog
     
 1. In your project setting.py file:
 
