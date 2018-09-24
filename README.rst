@@ -72,7 +72,7 @@ good knowledge of Python/Django to:
 A (not so) quick start
 ------------------------
 
-1. With a virtual env activated, load the needed requirements::
+0. With a virtual env activated, load the needed requirements::
 
     pip install django-rstblog
     
@@ -146,7 +146,7 @@ A (not so) quick start
 
 3. About your project templates:
 
-    3.1. it  must have a base.html template with this blocks
+    3.1. they must have a ``base.html`` template with this blocks
     used from rstblog templates::
     
         {% block title %}
@@ -159,7 +159,7 @@ A (not so) quick start
 4. In your project directory (where live manage.py), create the 
    directory ``contents/articles``
 
-5. Run `python manage.py migrate` to create  the ``rstblog`` models.
+5. Run ``python manage.py migrate`` to create  the ``django-rstblog`` models.
 
 6. Start the development server and visit http://127.0.0.1:8000/admin/
    to create at least a ``Category`` with value **uncategorized** to load articles

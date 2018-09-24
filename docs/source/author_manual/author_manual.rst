@@ -6,20 +6,37 @@ author manual
 
 .. contents:: author manual table of contents
    :depth: 3
+
+.. note:: A note before to start.
+
+   Below *default* and *optional* items are indicative by now. In this version of
+   ``django-rstblog`` an optional field is set to its default value in case of load 
+   of a new article. Otherwise, i.e. changing an article already present in DB, 
+   an optional field is ignored, causing the previous value to survive.
    
-Below *default* and *optional* items are indicative by now. In this version of
-``rstblog`` an optional field is set to its default value in case of load 
-of a new article. Otherwise, i.e. changing an article already present in DB, 
-an optional field is ignored, causing the previous value to survive. If you 
-wish to change it, set its value explicitly.
+   If you wish to change an optional field value at article update, set it explicitly.
+   How? Continue reading :-)
+
+Well, end of note, let's start the work.
+
+This is the scene: you, the author,
+have availability of a working site that uses ``diango-rstblog`` to publish
+your articles. So, someone (a site master) gave you:
+
+* the URL of the site [7]_;
+* your *username*;
+* your *password*.
+
+You'll need them to upload the article: keep them safe and begin how
+to write an article, ... keep going ...
    
 Article organization
 ------------------------
 
-Let's speak how organize an article that we'll publish using ``rstblog``.
+Let's speak how organize an article that we'll publish using ``diango-rstblog``.
 
 It is written in a file with two parts. The first part is about fields
-categorizing our article. The second part has content of the article.
+categorizing our article. The second part stocks the content of the article.
 
 The two parts are separated by a line containing the string::
 
@@ -69,25 +86,25 @@ wikipedia. It's written using reST:
 Article filename
 ------------------
 
-Some speech about about article file. How to name it? Our advice
+Some speech about article file. How to name it? Our advice
 is: create a rule and follow it. So you'll have a clearer
 working area.
 
 As example, you can use a progressive number and a very short title note.
 
-But whatever rule you'll adopt, it will be right: ``rstblog`` is filename
+But whatever rule you'll adopt, it will be right: ``django-rstblog`` is filename
 agnostic. Just a caution: it would be better if file extension is related
 to the format used; i.e.: ``.md`` for *markdown* text, ``.rst`` for *reST* text
 and ``.html`` for *html* text.
 
-Two **warnings about filenames**:
+**Two warnings** about filenames:
 
 * 1st: you cannot use the same filename to write 
   two different articles; this is obvious: on your PC, if you try to save a new
   article using a used filename, you'll scratch the old article;
 * 2nd: you cannot change filename to an article already uploaded; this is
   less obvious, but trust me: it is true; if you need to change filename
-  to an old article, you must tell it to the site administrator: he knows
+  to an old article, you must tell it to the site master: he knows
   how to do it.
 
 Now we'll speak in more detail about fields and content areas.
@@ -97,19 +114,19 @@ Article fields (aka: attributes)
 
 As we saw, fields categorize our article. So they are vital.
 
-``rstblog`` uses fields shown in previous example
+``django-rstblog`` uses fields shown in previous example
 `article about Marco Tullius Cicero`_. There is one more, but we'll 
 talk about it in a while.
 
 By now, we exhort you to use all the fields shown in the example
 and to pay attention to typos. At this early stage of development 
-(v0.2 as we write) there aren't a lot of controls about syntax errors.
+(v0.1 as we write) there aren't a lot of controls about syntax errors.
 
 A single field has structure:
 
   ``:``\ **fieldname**\ ``:`` *fieldvalue*
   
-``rstblog`` decides **fieldname**\ (s). So you must use the right fieldname
+``django-rstblog`` decides **fieldname**\ (s). So you must use the right fieldname
 without typos. Instead what to put in *fieldvalue* is up to you.
 
 Let's see the single fields meaning.
@@ -321,13 +338,13 @@ By now, these files must be uploaded to your site using some other kind of
 software; maybe ftp, or remote copy. This means that you must be
 a true site administrator to handle this files. If this is a problem
 for you: stay tuned ... In the future it's
-possible ``rstblog`` could upload even these files with the article.
+possible ``django-rstblog`` could upload even these files with the article.
 
 A last note. When you would publish your work, you need to call:
 
   ``https://my.blog.org/blog/load-article``
   
-``rstblog`` will ask you for your username and password. When you'll
+``django-rstblog`` will ask you for your username and password. When you'll
 give them to it, it will ask for the article filename to load. Here you can
 browse to the article file [3]_ and submit it, loading the request file.
 
@@ -341,7 +358,7 @@ translation_of
 ^^^^^^^^^^^^^^^
 
 Surprise: a field name not quoted in the `article about Marco Tullius Cicero`_!
-What is this? You can send to ``rstblog`` even articles that are translations
+What is this? You can send to ``django-rstblog`` even articles that are translations
 of article already known by ``rstblog``. If is this the case, in this field
 you write the title of the *original* (translated) article.
 
@@ -400,7 +417,7 @@ published
 ^^^^^^^^^^^^^^^
 
 This is about considering published, or not, the article.
-Usually ``rstblog`` regards an article as published by default, unless the article
+Usually ``django-rstblog`` regards an article as published by default, unless the article
 author sets this filed to ``no`` [5]_. An **unpublished** article:
 
 * doesn't compare in indexes;
@@ -425,7 +442,7 @@ offer_home
 
 ``offer_home`` is about to show the article in the blog home index.
 
-``rstblog`` shows in its home some, usually 20 [6]_, newer articles, checking their 
+``django-rstblog`` shows in its home some, usually 20 [6]_, newer articles, checking their 
 creation dates.
 
 If you if you want an article not to be counted between the articles to consider
@@ -464,6 +481,9 @@ Thank you to read it. We hope you enjoy it.
 
 .. [4] Meaning: it is missing.
 
-.. [5] The ``no`` value is meaning. ``rstblog`` interprets any other value as ``yes``.
+.. [5] The ``no`` value is meaning. ``django-rstblog`` interprets any other value as ``yes``.
 
-.. [6] This value could be modified, but it is an operation to do during the application installation.
+.. [6] This value could be modified, but it is an operation to do during the
+   application installation.
+
+.. [7] The site URL will be something of the type: ``https://site-domain/blog``.

@@ -1,13 +1,13 @@
-.. rstblog documentation master file, created by
-   sphinx-quickstart on Fri Jul 27 11:42:37 2018.
+.. django-rstblog documentation master file, derived from rstblog
+   project master file.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to rstblog documentation
-===================================
+Welcome to ``django-rstblog`` documentation
+=============================================
 
-``rstblog`` project is about a simple blog driven by articles written
-using reStructuredText markup language.
+``django-rstblog`` is a Django_ app to manage a blog, driven by articles written 
+using reStructuredText_, or Markdown_ or HTML_.
 
 This is its documentation.
 
@@ -16,115 +16,99 @@ This is its documentation.
    :caption: Contents:
    
    Article author manual       <author_manual/author_manual>
-   (Empty) Site manager manual         <manager_manual/manager_manual>
-   (Empty) Details about how it works  <programmer_manual/programmer_manual>
+   Site manager manual         <manager_manual/manager_manual>
    
 General introduction
 -----------------------
 
-This project is developed using Django_, a web framework based on the
-Python_ language. And this fact is important to you *only if you
-wish to modify how the project work*. In other words if you need to change 
-the programming code of the project.
+The basic idea is to adopt a *hybrid* publication model,
+halfway between a static site (pure html) and a dynamic one (all inside a DB,
+as Wordpress_).
 
-Central to this work is also the reStructuredText_ markup language (for
-short: reST from now on). This is a method to sign a text achieving formatting effects, as 
-writing charactes in bold, or creating a table, or an html link
-to another document.
+In practice, the author writes his article locally, at his/her PC, then
 
-And this fact is important to you as a user of this project. Why? we'll see.
+* he puts a series of lines of text at the top of the article; they serve to
+  categorize it, indicating the language used, the title, and other attributes ...
+* and a line of text, of fixed format, which separates the attributes from the 
+  article content.
 
-Let's assume you have an ``rstblog`` installation functioning and 
-responding to address ``https://my.blog.org`` (original, isn't it?).
-And, of corse, you know a username (& password) authorized to publish 
-an article on it.
+Finally he calls an address (URL) of the site that allows him to upload the article.
+If the user is not logged in to the site, this address asks for username and password.
 
-Well, now you have a fantastic idea you need to share with mankind.
+When the article is uploaded to the site, ``django-rstblog`` uses its attributes
+to classify it in the database. The content of the article is not loaded
+in the DB; when necessary, it is resumed from the file uploaded on the site.
 
-First think first: you write a vibrant article using your favourite
-text editor in your computer, formatting it using *reST* [#]_.
-Note: by now your work is saved in a file on your PC.
+If the author wants to modify the content of the article (or its attributes),
+he edits the file on his PC, then upload it again.
 
-When you are satisfied of your article, using your web browser, you
-navigate to ``https://my.blog.org/blog/load-article``.
+Why use ``django-rstblog``?
+---------------------------------
 
-``rstblog`` will request your username and password. If you feed them, it
-will request to you what file you need to load. Browse to it
-and click the send button. ``rstblog`` will respond you: *article xxx loaded* [#]_
+What are the reasons that led us to this design choice? The following:
 
-We are done: homepage at ``https://my.blog.org`` will show the title
-and summary of your new article. And if you click on title, you'll
-see your article in all its glory.
+* we can always count on a local backup of all the contents of the site;
+* we can work without an Internet connection, and connect only when
+  we want to upload;
+* the program is extremely light, it runs smoothly on servers with
+  limited CPU capacity as with little RAM and HDU space (as long as accesses
+  are contained, and we haven't this problem :-);
+* we do not renounce the flexibility and speed of research that a DB allows;
+* if we have a few articles [1]_ the DB can be implemented with the support library
+  of Python (``sqlite3``), without using big programs (in the sense
+  that they commit a lot of resources) as MySQL_, or PostgreSQL_, ...
 
-Well, there is some little trick to use to obtain the right result. But
-I swear: it's all very simple. Otherwise I would not be able to use it.
+Features
+--------------
 
-Now. I imagine you are asking yourself: "for God's sake: why I need
-use a text editor and upload a file to my site, if wordpress_ or
-drupal_ allow me to write it directly in the browser window?".
+The features that the app currently implements are:
 
-Due to some reasons.
+* the index of articles, indicating the number of consultations
+  of each article and the main attributes;
+* display of an article;
+* upload of an article;
+* complete reconstruction of the DB starting from the files of the articles uploaded to the site;
+* administration of the DB contents using the Django's admin interface; use this interface to:
 
-First of all: never appened while you are writing, something goes wrong (
-power failure at your adsl router, a timeout to your server, ...) and do you
-risk to loose your work? It appened to me. From that moment on, I got used to write 
-long articles in files *before* to feed drupal with them.
+    * manage a list of authors of the articles;
+    * manage a list or arguments to classify the articles (an article must 
+      belong to an argument);
+      
+* articles may have translations, they can be present in more than one language;
+* indication of site statistics; in the sense of how many articles are
+  loaded, how many languages ​​are used, how many articles are present in each
+  classification topic and language.
+  
+Note that, at least by now, ``django-rstblog`` is capable to manage sites with 
+a single blog. It isn't developed to manage multi-blogs sites.
 
-*But* ... this habit lead to different use of the tools. Long articles
-initially written by files. The short ones written directly using
-the user interface of the blog, without a local file in your computer.
+Cons
+-------
 
-And when you need to make a little correction to an article, for sure
-you'll do it using the blog user interface. So your local file in a moment
-will no longer be aligned with the online version of your article.
+What are the cons to the use of this environment? You must have a
+good knowledge of Python/Django:
 
-So you ask to me: "where is the problem?". The problem is the fact that your
-articles are stored partially only in the database of your blog software. Partially 
-because probably images, and other files that your refer to into your articles
-are in the web server file system. So you need to backup all these informations
-and wish you will not have to change the blog software, or you might 
-encounter some (big) problems to transfer them from one kind of system to the other.
+* to customize the app to your needs;
+* to install it in a django project and in a production server.
+  
+License
+--------------
 
-Again: *but* ... if there is a think I know working in IT for over 30 years
-is that *for sure* your data will have to change system type. Every type
-of system type :-). Even not only the name of software (e.g. from Drupal to 
-Wordpress), but from type of software to another (e.g. from specialized Blog to general 
-purpouse CMS), or even more complex scenarios.
-
-In these cases, you have more chance of success if your data are in some
-form of *source* format. The simpler it is, the better it is.
-
-So, returning to us, I decided to experiment to use a simple
-markup language, as reSt, or markdown, to write a local copy of the
-articles. And, while I'm living a full copy of them on my PC
-(this is a local backup, from start!), I upload
-them to a web server able to host them and catalog their contents
-by some simple fields written in the article file text.
-
-So, in case of restore in other server I can load my local copy. And in case 
-of a radical software change, I can think to write some (hopefully) simple
-interface to load my files in a future shocking AI.
-
-If this long introduction did not make you escape, and you are still
-interested to know better how use ``rstblog``, I can propose you
-these chapters:
-
-* an article :ref:`author manual`;
-* an **empty** site :ref:`manager manual`;
-* an **empty** :ref:`programmer manual`.
+This work is distributed under a 
+`MIT License <https://opensource.org/licenses/MIT>`_
+license.
 
 
 References
------------------------
+---------------
 
-This project is open source `hosted on GitHub <https://github.com/l-dfa/base_rstblog>`_.
+This project is `hosted on GitHub <https://github.com/l-dfa/django-rstblog.git>`_
+Here you will find the complete environment
+needed to develop the ``django-rstblog`` app. It means: not only the app, but
+even a minimal django project that hosts it.
 
-And here there is the `author's website <https://luciano.defalcoalfano.it>`_.
-Its contents are mainly written in italian language.
-
-This is the `launch article <https://luciano.defalcoalfano.it/blog/show/rstblog-project>`_
-about this project.
-
+If you wish to see a website implemented using this app, you can navigate
+to the `author's website <https://luciano.defalcoalfano.it>`_.
 
 Indices and tables
 ==================
@@ -133,18 +117,18 @@ Indices and tables
 * :ref:`modindex`
 * :ref:`search`
 
+------------------------------
 
 .. _Python: http://www.python.org/
 .. _Django: https://www.djangoproject.com/
+.. _MySQL: https://dev.mysql.com/downloads/
+.. _PostgreSQL: https://www.postgresql.org/community/
+.. _GitHub: https://github.com/
 
 .. _reStructuredText: http://docutils.sourceforge.net/rst.html
-.. _a primer to reST: http://docutils.sourceforge.net/docs/user/rst/quickstart.html
-.. _markdown: https://daringfireball.net/projects/markdown/syntax
-.. _html: https://www.w3.org/TR/2017/REC-html52-20171214/
-.. _wordpress: https://wordpress.org/
-.. _drupal: https://www.drupal.org/
+.. _Markdown: https://daringfireball.net/projects/markdown/syntax
+.. _HTML: https://www.w3.org/TR/2017/REC-html52-20171214/
+.. _Wordpress: https://wordpress.org/
 
-.. [#] To be honest, you can also use markdown_, or html_ too. But we are
-   a little fanatic about reST; so: this is a link to `a primer to reST`_.
-   
-.. [#] Or, in case of error, it will prompt you.
+.. [1] Not so few: with hundreds articles, everything reacts well.
+  
