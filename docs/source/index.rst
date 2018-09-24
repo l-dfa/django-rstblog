@@ -110,6 +110,10 @@ even a minimal django project that hosts it.
 If you wish to see a website implemented using this app, you can navigate
 to the `author's website <https://luciano.defalcoalfano.it>`_.
 
+And the full documentation is
+`hosted on Read the Docs <https://django-rstblog.readthedocs.io/>`_.
+
+
 Indices and tables
 ==================
 
