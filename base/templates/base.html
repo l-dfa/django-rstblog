@@ -11,7 +11,7 @@
           <meta name="generator" content="rstsite">
       {% endblock %}
       
-      <title>{% block title %}Title{% endblock %}</title>
+      <title>{% block title %}Title{% endblock %}{% if WTITLE %} | {{ WTITLE }}{% endif %}</title>
       
       <!-- Core CSS - Include with every page -->
           <!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"> -->
