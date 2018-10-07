@@ -31,7 +31,16 @@ Blog home
                                      </h3>
         
         {% for article in articles %}
+            {% if forloop.counter|bitwise_and:1 == 1 %}
+                <div class="flex-container" style="display:flex;">  <!-- opening flex-container -->
+            {% endif %}
             {% include "article_box.html" %}
+            {% if forloop.counter|bitwise_and:1 == 0 %}
+                </div>                        <!-- closing flex-container -->
+            {% endif %}
+            {% if forloop.last and forloop.counter|bitwise_and:1 == 1 %}
+                </div>                        <!-- closing flex-container in case last article is odd -->
+            {% endif %}
         {% empty %}
             <div><p> Sorry. No articles by now.</p></div>
         {% endfor %}
