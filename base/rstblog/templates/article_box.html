@@ -1,0 +1,52 @@
+
+<div style="margin:10px 10px;overflow:auto;background-color:White;box-shadow:1px 1px LightGrey;width:50%;border-radius: 4px;">
+    <!-- <div style="clear:both;"> -->
+        <h5 style="margin:1px; padding:2px">
+            <a style="color: black; font-weight:bold; font-size:1.5em;" href="{% url 'rstblog:show' article.slug %}">{{ article.title }}</a>
+        </h5>
+        
+        <p class="hidden-xs pattributes" style="margin:1px; padding:2px">
+            {% if article.hit %}
+                <i>Read</i> {{ article.hit }} times
+                {% if article.created %} ;&nbsp;&nbsp;&nbsp; {% endif %}
+            {% endif %}
+            {% if article.created %} 
+                <i>Created</i> on {{ article.created|date:"d M Y" }}
+                {% if article.modified %} ;&nbsp;&nbsp;&nbsp; {% endif %}
+            {% endif %}
+            {% if article.modified %}
+                <i>Modified</i> on {{ article.modified|date:"d M Y" }}
+            {% endif %}
+            {% for key, value in translations.items %}
+                {% if key == article.title %}
+                    ;&nbsp;&nbsp;&nbsp;
+                    <!-- <span style="border: 1px solid red; border-radius: 2px;"> <b>Translation{{ value|length|pluralize }}</b>: &nbsp; -->
+                    <span><b>Translation{{ value|length|pluralize }}</b>:&nbsp; 
+                    {% for language, slug in value %}
+                        <a href="{% url 'rstblog:show' slug %}">{{ language }}</a>
+                        {% if not forloop.last%}&comma;&nbsp;{% endif %}
+                    {% endfor %}
+                    </span>
+                {% endif %}
+            {% comment %}
+            {% endcomment %}
+            {% endfor %}
+        </p>
+    <!-- </div> -->
+    <div>
+    {% if article.image != None %}
+        <div style="float:left;">
+            {% with "/media/images/"|add:article.image as img %}
+                <img class="container-fluid hidden-xs soiola" src="{{ img }}" alt="{{article.image}}" style="width:120px;">
+                <!-- <img  src="{{ img }}" alt="{{article.image}}" style="width:100px;border:0;padding:0;"> -->
+            {% endwith %}
+        </div>
+    {% endif %}
+        <div>
+                {% if article.summary %}
+                    <p class="psummary" style="padding:2px;">{{ article.summary }}</p>
+                {% endif %}
+        </div>
+    </div>
+</div>
+

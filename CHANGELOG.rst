@@ -14,6 +14,9 @@ Added
 Changed
 --------------------
 
+* now the title of the blog home page is more meaning;
+* in blog home, 1st article is more evident, others are on two columns
+
 Removed
 --------------------
 

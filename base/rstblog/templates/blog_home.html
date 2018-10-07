@@ -29,11 +29,24 @@ Blog home
                                      <i>{{category}}</i> category
                                  {% endif %}
                                      </h3>
-        
-        {% for article in articles %}
-            {% include "article_box.html" %}
-        {% empty %}
+        {% if articles|length > 0 %}
+            {% include "article_evidence.html" %}
+        {% else %}
             <div><p> Sorry. No articles by now.</p></div>
+        {% endif %}
+        
+        {% for article in articles|slice:"1:" %}
+            {% if forloop.counter|bitwise_and:1 == 1 %}
+                <div class="flex-container" style="display:flex;">  <!-- opening flex-container -->
+            {% endif %}
+            {% include "article_box.html" %}
+            {% if forloop.counter|bitwise_and:1 == 0 %}
+                </div>                        <!-- closing flex-container -->
+            {% endif %}
+            {% if forloop.last and forloop.counter|bitwise_and:1 == 1 %}
+                </div>                        <!-- closing flex-container in case last article is odd -->
+            {% endif %}
+            
         {% endfor %}
     </div>
 {% endblock %}

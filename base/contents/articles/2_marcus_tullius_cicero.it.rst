@@ -5,6 +5,7 @@
 :modified: 2018-08-05 10:00:00
 :slug: parlando-di-cicerone
 :summary:  Il profilo di Marco Tullio Cicerone: notizie e vita.
+:image:  Cicero_Musei_Capitolini.JPG
 :authors:   Wikipedia
 :category: latin literature history
 :translation_of: Speaking about Cicero

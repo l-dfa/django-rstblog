@@ -23,3 +23,14 @@ def tail(value, sep=None):
 def length(value):
     """return len(value)"""
     return len(value)
+    
+@register.filter
+def bitwise_and(value, arg):
+    """return (value & arg)"""
+    return value & arg
+    
+@register.filter
+def bitwise_or(value, arg):
+    """return (value | arg)"""
+    return value | arg
+    

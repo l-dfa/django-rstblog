@@ -5,6 +5,7 @@
 :modified: 2018-08-05 10:00:00
 :slug: speaking-about-cicero
 :summary:  The Marcus Cicero's profile: informations and life.
+:image:  Cicero_Musei_Capitolini.JPG
 :authors:   Wikipedia
 :category: latin literature history
 
