@@ -237,7 +237,8 @@ def get_record(dst):
     return (record, authors, )
 
 
-@login_required(login_url="/login/")
+#@login_required(login_url="/login/")
+@login_required()
 def reset_article_table(request, dir=ARTICLES_DIR):
     '''clear and rebuild article table'''
     
@@ -317,7 +318,8 @@ def cOu_article_record(pth, must_be_original='ignore'):
         raise
     return article
     
-@login_required(login_url="/login/")
+#@login_required(login_url="/login/")
+@login_required()
 def load_article(request):
     '''load a reST|markup|html file and add/chg relative record '''
     

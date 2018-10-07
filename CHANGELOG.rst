@@ -15,7 +15,14 @@ Changed
 --------------------
 
 * now the title of the blog home page is more meaning;
-* in blog home, 1st article is more evident, others are on two columns
+* in blog home, 1st article is more evident, others are on two columns;
+* upgraded to Django ver 2.1.2,
+  
+  * changed login urls in urls.py due to change in Django;
+  * mv templates/login.tml to templates/registration/login.html (as before);
+  * changed @login_required in views.py, otherwise they were not functioning (as before);
+  
+* lost and recatched responsiveness;
 
 Removed
 --------------------
