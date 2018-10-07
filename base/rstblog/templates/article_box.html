@@ -1,9 +1,37 @@
 
-<div class="col-sm-6" style="margin:10px 0px;overflow:hidden;background-color:White;box-shadow:1px 1px LightGrey;border-radius:4px;">
+<div class="col-sm-6" style="overflow:hidden;">
     <!-- <div style="clear:both;"> -->
         <h5 style="margin:1px; padding:2px">
-            <a style="color: black; font-weight:bold; font-size:1.5em;" href="{% url 'rstblog:show' article.slug %}">{{ article.title }}</a>
+            <a style="color: black; font-weight:bold; font-size:1.25em;" href="{% url 'rstblog:show' article.slug %}">{{ article.title }}</a>
         </h5>
+        
+        <p class="hidden-xs pattributes" style="margin:1px; padding:2px">
+            {% if article.hit %}
+                <i>Read</i> {{ article.hit }} times
+                {% if article.created %} ;&nbsp;&nbsp;&nbsp; {% endif %}
+            {% endif %}
+            {% if article.created %} 
+                <i>Created</i> on {{ article.created|date:"d M Y" }}
+                {% if article.modified %} ;&nbsp;&nbsp;&nbsp; {% endif %}
+            {% endif %}
+            {% if article.modified %}
+                <i>Modified</i> on {{ article.modified|date:"d M Y" }}
+            {% endif %}
+            {% for key, value in translations.items %}
+                {% if key == article.title %}
+                    ;&nbsp;&nbsp;&nbsp;
+                    <!-- <span style="border: 1px solid red; border-radius: 2px;"> <b>Translation{{ value|length|pluralize }}</b>: &nbsp; -->
+                    <span><b>Translation{{ value|length|pluralize }}</b>:&nbsp; 
+                    {% for language, slug in value %}
+                        <a href="{% url 'rstblog:show' slug %}">{{ language }}</a>
+                        {% if not forloop.last%}&comma;&nbsp;{% endif %}
+                    {% endfor %}
+                    </span>
+                {% endif %}
+            {% comment %}
+            {% endcomment %}
+            {% endfor %}
+        </p>
         
     <!-- </div> -->
     <div>

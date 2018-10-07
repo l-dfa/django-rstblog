@@ -30,7 +30,7 @@ Blog home
                                  {% endif %}
                                      </h3>
         {% if articles|length > 0 %}
-            <div class="row">  <!-- opening flex-container -->
+            <div class="row" style="margin:10px 0px;background-color:White;box-shadow:1px 1px LightGrey;border-radius:4px;">  <!-- opening flex-container -->
                 {% include "article_evidence.html" %}
             </div>                        <!-- closing flex-container -->
         {% else %}
@@ -40,7 +40,7 @@ Blog home
         {% if articles|length > 1 %}
             {% for article in articles|slice:"1:" %}
                 {% if forloop.counter|bitwise_and:1 == 1 %}
-                    <div class="row">  <!-- opening flex-container -->
+                    <div class="row" style="margin:10px 0px;background-color:White;box-shadow:1px 1px LightGrey;border-radius:4px;">  <!-- opening flex-container -->
                 {% endif %}
                 {% include "article_box.html" %}
                 {% if forloop.counter|bitwise_and:1 == 0 %}
