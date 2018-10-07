@@ -9,10 +9,13 @@
 
 
 {% block content %}
-  <form method="post" enctype="multipart/form-data">
-      {% csrf_token %}
-      <p>&nbsp;</p>
-      <p> Select article to load: <input type="file" name="article"> </p>
-      <p> <button type="submit">Upload</button> </p>
-  </form>
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <p>&nbsp;</p>
+        <h4> Select article to load:</h4>
+        <input type="file" name="article"> </p>
+        <p> <button type="submit">Upload</button> </p>
+    </form>
+</div>
 {% endblock %}

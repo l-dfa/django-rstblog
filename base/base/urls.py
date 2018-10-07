@@ -75,8 +75,8 @@ urlpatterns = [
     path('', views.index, name='index'),
     url(r'^i18n/', include('django.conf.urls.i18n')),
     path('admin/', admin.site.urls),
-    path('login/', auth_views.login, {'template_name': 'login.html',}, name='login'),
-    path('logout/', auth_views.logout, {'next_page': '/login'}, name='logout'), 
+    path('login/', auth_views.LoginView, {'template_name': 'users/registration/login.html',}, name='login'),
+    path('logout/', auth_views.LogoutView, {'next_page': settings.LOGIN_REDIRECT_URL}, name='logout'), 
 ]
 
 if settings.DEBUG is True:

@@ -32,7 +32,7 @@ Blog home
         
         {% for article in articles %}
             {% if forloop.counter|bitwise_and:1 == 1 %}
-                <div class="flex-container" style="display:flex;">  <!-- opening flex-container -->
+                    <div class="row" style="margin:10px 0px;background-color:White;box-shadow:1px 1px LightGrey;border-radius:4px;">  <!-- opening flex-container -->
             {% endif %}
             {% include "article_box.html" %}
             {% if forloop.counter|bitwise_and:1 == 0 %}
