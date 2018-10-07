@@ -1,17 +1,17 @@
 
-<div style="margin:10px 10px;overflow:hidden;background-color:White;box-shadow:1px 1px LightGrey;border-radius: 4px;">
-    <div style="clear:both;">
+<div class="col-xs-12" style="margin:10px 0px;overflow:hidden;background-color:White;box-shadow:1px 1px LightGrey;border-radius: 4px;">
+    <!-- <div style="clear:both;"> -->
     
         {% if articles.0.image != None %}
             <div style="float:left;">
                 {% with "/media/images/"|add:articles.0.image as img %}
-                    <img class="container-fluid hidden-xs soiola" src="{{ img }}" alt="{{articles.0.image}}" style="width:120px;">
+                    <img class="hidden-xs soiola" src="{{ img }}" alt="{{articles.0.image}}" style="width:120px;">
                     <!-- <img  src="{{ img }}" alt="{{article.image}}" style="width:100px;border:0;padding:0;"> -->
                 {% endwith %}
             </div>
         {% endif %}
 
-        <div class="container-fluid">
+        <div>
             <h5 style="margin:1px; padding:2px">
                 <a style="color: black; font-weight:bold; font-size:2em;" href="{% url 'rstblog:show' articles.0.slug %}">{{ articles.0.title }}</a>
             </h5>
@@ -46,6 +46,6 @@
                 <p class="psummary" style="padding:2px;">{{ articles.0.summary }}</p>
             {% endif %}
         </div>
-    </div>
+    <!-- </div> -->
 </div>
 

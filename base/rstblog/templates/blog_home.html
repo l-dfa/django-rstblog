@@ -30,23 +30,26 @@ Blog home
                                  {% endif %}
                                      </h3>
         {% if articles|length > 0 %}
-            {% include "article_evidence.html" %}
+            <div class="row">  <!-- opening flex-container -->
+                {% include "article_evidence.html" %}
+            </div>                        <!-- closing flex-container -->
         {% else %}
             <div><p> Sorry. No articles by now.</p></div>
         {% endif %}
         
-        {% for article in articles|slice:"1:" %}
-            {% if forloop.counter|bitwise_and:1 == 1 %}
-                <div class="flex-container" style="display:flex;">  <!-- opening flex-container -->
-            {% endif %}
-            {% include "article_box.html" %}
-            {% if forloop.counter|bitwise_and:1 == 0 %}
-                </div>                        <!-- closing flex-container -->
-            {% endif %}
-            {% if forloop.last and forloop.counter|bitwise_and:1 == 1 %}
-                </div>                        <!-- closing flex-container in case last article is odd -->
-            {% endif %}
-            
-        {% endfor %}
+        {% if articles|length > 1 %}
+            {% for article in articles|slice:"1:" %}
+                {% if forloop.counter|bitwise_and:1 == 1 %}
+                    <div class="row">  <!-- opening flex-container -->
+                {% endif %}
+                {% include "article_box.html" %}
+                {% if forloop.counter|bitwise_and:1 == 0 %}
+                    </div>                        <!-- closing flex-container -->
+                {% endif %}
+                {% if forloop.last and forloop.counter|bitwise_and:1 == 1 %}
+                    </div>                        <!-- closing flex-container in case last article is odd -->
+                {% endif %}
+            {% endfor %}
+        {% endif %}
     </div>
 {% endblock %}
