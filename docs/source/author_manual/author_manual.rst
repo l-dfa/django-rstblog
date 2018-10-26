@@ -88,9 +88,16 @@ Article filename
 
 Some speech about article file. How to name it? Our advice
 is: create a rule and follow it. So you'll have a clearer
-working area.
+working area. 
 
-As example, you can use a progressive number and a very short title note.
+
+As example, you can use a progressive number and a very short title note. So, these:
+
+* 159_full_text_search_python.rst
+* 160_full_text_search_python.en.rst
+
+could be two files about an article regarding how to do full text search in python.
+First is in *default* language, the second is in English language.
 
 But whatever rule you'll adopt, it will be right: ``django-rstblog`` is filename
 agnostic. Just a caution: it would be better if file extension is related
@@ -288,7 +295,10 @@ Here the author develops his true work: to write the articles contents.
 You are free to choose the format type you like throught *markdown*,
 *reST* and *html*.
 
-Let us to give you just some advices about other files you could refer
+Linkt to other files
+^^^^^^^^^^^^^^^^^^^^^^
+
+Let us to give you some advices about other files you could refer
 from your article.
 
 First of all: the external hyperlinks. These are html pages available
@@ -339,6 +349,16 @@ software; maybe ftp, or remote copy. This means that you must be
 a true site administrator to handle this files. If this is a problem
 for you: stay tuned ... In the future it's
 possible ``django-rstblog`` could upload even these files with the article.
+
+Mathematical expressions
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+In case you need to write mathematical expressions, it's simpler to use
+Markdown as markup language. At the moment, ``django-rstblog`` is
+configured to render math to html from Markdown.
+
+Loading the article content
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 A last note. When you would publish your work, you need to call:
 
@@ -457,6 +477,24 @@ in home, you can set this field to ``no``.
 Example::
 
   :offer_home: yes
+
+  
+image
+^^^^^^^^^^^^^^^
+
+If you load an imge in ``contents/media/images``, using this field you can link
+it from the summary in home page.
+
+*Accepted values*: the image filename as a string.
+
+*Default value*: no.
+
+*Optional*: yes.
+
+Example::
+
+  :image: django-logo-negative.svg
+
 
 
 Author manual end

@@ -11,6 +11,19 @@ This file registers variations in the project ``django-rstblog``.
 Added
 --------------------
 
+Changed
+--------------------
+
+Removed
+--------------------
+
+
+[0.1.1] - 2018-10-26
+======================
+
+Added
+--------------------
+
 * support of mathematical expressions in Markdown, using `python-markdown-math <https://pypi.python.org/pypi/python-markdown-math>`_
   and `mathjax <https://www.mathjax.org/>`_
 * an article can link an image using the image field; this is shown in the article summary in home;

@@ -40,7 +40,9 @@ upload ``django-rstblog`` and all of its dependencies:
 * ``docutils``;
 * ``django-concurrency``;
 * ``Markdown``;
-* ``Pygments``.
+* ``Pygments``;
+* ``python-markdown-math``.
+
 
 
 Installing
@@ -121,8 +123,10 @@ Then:
     
     2.2. check for presence of login url::
 
+        from django.contrib.auth     import views as auth_views
         ...
-        path('login/', auth_views.login, {'template_name': 'login.html',}, name='login'),
+        path('login/', auth_views.LoginView.as_view(), name='login'),
+        path('logout/', auth_views.LogoutView, {'next_page': settings.LOGIN_REDIRECT_URL}, name='logout'), 
         ...
 
 3. About your project templates:
@@ -135,7 +139,8 @@ Then:
         {% block link %}
         {% block content %}
     
-    3.2. check for the presence of login.html used in login.
+    3.2. check for the presence of ``templates/registration/login.html``
+    used in login.
     
 4. In your project directory (where live manage.py), create the 
    directory ``contents/articles``
