@@ -18,7 +18,7 @@ Removed
 --------------------
 
 
-[0.1.1] - 2018-10-26
+[0.1.2] - 2018-10-26
 ======================
 
 Added
@@ -39,9 +39,20 @@ Changed
   * mv templates/login.tml to templates/registration/login.html (as before);
   * changed @login_required in views.py, otherwise they were not functioning (as before);
   
+[0.1.1] - 2018-09-24
+======================
+
+Added
+--------------------
+
+* documentation
+
+Changed
+--------------------
 
 Removed
 --------------------
+
 
 [0.1.0] - 2018-09-22
 ======================

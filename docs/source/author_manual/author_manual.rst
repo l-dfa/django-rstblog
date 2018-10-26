@@ -295,7 +295,7 @@ Here the author develops his true work: to write the articles contents.
 You are free to choose the format type you like throught *markdown*,
 *reST* and *html*.
 
-Linkt to other files
+Link to other files
 ^^^^^^^^^^^^^^^^^^^^^^
 
 Let us to give you some advices about other files you could refer
