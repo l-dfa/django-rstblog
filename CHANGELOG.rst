@@ -13,6 +13,7 @@ Added
 
 * support of mathematical expressions in Markdown, using `python-markdown-math <https://pypi.python.org/pypi/python-markdown-math>`_
   and `mathjax <https://www.mathjax.org/>`_
+* an article can link an image using the image field; this is shown in the article summary in home;
 
 Changed
 --------------------
@@ -25,7 +26,6 @@ Changed
   * mv templates/login.tml to templates/registration/login.html (as before);
   * changed @login_required in views.py, otherwise they were not functioning (as before);
   
-* an article can link an image using the image field; this is shown in the article summary in home;
 
 Removed
 --------------------
