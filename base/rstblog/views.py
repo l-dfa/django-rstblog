@@ -357,6 +357,7 @@ def show(request, slug=''):
     # preaparing translations as [(language, slug), (language, slug), ...]
     trans = article.get_translations()
     translations = [(LANGUAGES.get(t.language), t.slug, t.language) for t in trans]
+    markup = ''
 
     # preparing article content as html
     try:
@@ -371,17 +372,26 @@ def show(request, slug=''):
             content = file_content[:]
         if ( article.markup == 'restructuredtext'
              or p.suffix == SUFFIX.reST ):
+            markup = 'restructuredtext'
             content = rstcontent2html(content)
         elif ( article.markup == 'html'
              or p.suffix == SUFFIX.html ):
-            pass
+            markup = 'html'
         elif ( article.markup == 'markdown'
              or p.suffix == SUFFIX.markdown ):
-            content = markdown(content, extensions=[
-                'markdown.extensions.tables',
-                'markdown.extensions.footnotes',])
+            markup = 'markdown'
+            content = markdown(
+                content,
+                extensions=[
+                    'markdown.extensions.tables',
+                    'markdown.extensions.footnotes',
+                    'mdx_math', ],
+                extension_configs = {
+                    'mdx_math': {
+                        'enable_dollar_delimiter': True, }, }
+                )   # to manage math expressions using https://www.mathjax.org/ (pip install python-markdown-math); 2018-10-26 ldfa
         else:
-            raise ValueError(f'{article.markup} is a markup language not supported yet')
+            raise ValueError(f'{article.markup} is a markup language not supported (yet)')
     except:
         raise Http404()
     
@@ -395,7 +405,8 @@ def show(request, slug=''):
     data = { 'content': content, 
              'infos': infos,
              'article': article,
-             'translations': translations, }
+             'translations': translations,
+             'markup': markup, }
              
     return render( request, 'show.html', data, )
 

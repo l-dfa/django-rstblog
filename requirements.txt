@@ -17,6 +17,7 @@ packaging==17.1
 pkginfo==1.4.2
 Pygments==2.2.0
 pyparsing==2.2.0
+python-markdown-math==0.6
 pytz==2018.5
 requests==2.19.1
 requests-toolbelt==0.8.0
