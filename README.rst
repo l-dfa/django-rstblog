@@ -106,6 +106,7 @@ A (not so) quick start
                        'page': 'page', },
             'FIELDS': {'markup',
                        'image',
+                       'image_in_content',
                        'atype',
                        'language',
                        'title',
@@ -122,7 +123,8 @@ A (not so) quick start
             'DT_FIELDS': { 'created',
                            'modified', },
             'BOOL_FIELDS': { 'published',
-                             'offer_home', },
+                             'offer_home',
+                             'image_in_content', },
             'HOME_ITEMS': 10,
         }
     
