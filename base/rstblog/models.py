@@ -144,9 +144,7 @@ class Article(models.Model):
         max_length = 2,
         null=False,
         blank = False,
-        #choices=LANGUAGE,
         choices=list(LANGUAGES.items()),
-        #default = ITALIAN, )
         default = list(LANGUAGES.keys())[0], )  # BEWARE.from py 3.6+ dict preserve keys order by insertion
     markup = models.CharField(
         'markup_language',
@@ -187,6 +185,11 @@ class Article(models.Model):
         default=True, )
     offer_home = models.BooleanField(
         'offer article for home',
+        null=False,
+        blank = False,
+        default=True, )
+    image_in_content = models.BooleanField(
+        'show article image in content',
         null=False,
         blank = False,
         default=True, )
@@ -275,7 +278,8 @@ class ArticleForm(forms.ModelForm):
             'slug', 'atype', 'published', 'offer_home', 'hit',
             'authors', 
             'category',
-            'translation_of', )
+            'translation_of',
+            'image_in_content', )
     def clean_slug(self):
         return self.cleaned_data['slug'] or None
 
