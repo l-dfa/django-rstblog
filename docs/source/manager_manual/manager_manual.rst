@@ -85,6 +85,7 @@ Then:
                        'page': 'page', },
             'FIELDS': {'markup',
                        'image',
+                       'image_in_content',
                        'atype',
                        'language',
                        'title',
@@ -101,7 +102,8 @@ Then:
             'DT_FIELDS': { 'created',
                            'modified', },
             'BOOL_FIELDS': { 'published',
-                             'offer_home', },
+                             'offer_home',
+                             'image_in_content', },
             'HOME_ITEMS': 10,
         }
         ...

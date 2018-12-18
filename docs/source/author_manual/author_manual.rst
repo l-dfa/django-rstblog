@@ -482,8 +482,12 @@ Example::
 image
 ^^^^^^^^^^^^^^^
 
-If you load an imge in ``contents/media/images``, using this field you can link
-it from the summary in home page.
+If you load an image in ``contents/media/images``, using this field you can link
+it from the summary in home page. In practice, you an use an image to characterize
+the article. A kind of *visual tag*.
+
+Moreover, you can show this image in the main window of the article.
+You can control this behaviour using the next field: ``image_in_content``.
 
 *Accepted values*: the image filename as a string.
 
@@ -496,6 +500,30 @@ Example::
   :image: django-logo-negative.svg
 
 
+image_in_content
+^^^^^^^^^^^^^^^^^^
+
+If you indicate an image as an article characterizer, it is ever showed
+in the index page. And it is possible to show it even in the window
+of the article content.
+
+This is the default behavior. If you wish, you can avoid to show this image 
+in the window of the article content, setting to ``no`` the field ``image_in_content``.
+
+This is desiderable if you have an article showing the same image in its contents.
+In such a case django-rstblog would show this image twice. Not a beautiful behavior.
+
+*Accepted values*: ``yes`` or ``no``.
+
+*Default value*: ``yes``.
+
+*Optional*: yes.
+
+Example::
+
+  :image_in_content: no
+
+  
 
 Author manual end
 ---------------------

@@ -11,6 +11,9 @@ This file registers variations in the project ``django-rstblog``.
 Added
 --------------------
 
+* the field ``image_in_content`` to show, or no, an article image in its
+  content window;
+
 Changed
 --------------------
 
