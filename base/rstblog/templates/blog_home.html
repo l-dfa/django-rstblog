@@ -21,6 +21,11 @@ Blog home
 
 {% block content %}
     <div class="container" style="background-color:WhiteSmoke;">
+        {% if banner_content %}
+            <div class="banner" style="margin:10px 0px;background-color:White;box-shadow:1px 1px LightGrey;border-radius:4px;">
+                {{ banner_content | safe }}
+            </div>
+        {% endif %}
         <h3 class="hindex">Indexing {{ articles|length }}
                            {% if home %}<i>newer</i>&nbsp;{% endif %}{{ atype }}{{ articles|length|pluralize }}
                            about {% if not category %} 

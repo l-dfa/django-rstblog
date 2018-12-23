@@ -498,6 +498,19 @@ newer articles. You can change it.
    ...
    'HOME_ITEMS': 10,
 
+Adding a banner in home page
+=================================
+
+It is possible to add a banner in the home page of the blog site.
+
+To achieve this effect, it is sufficient to load a page titled as ``banner``.
+
+It's more complicated to remove the banner. You must delete the ``banner`` page
+record from the blog database and remove the relative file from the
+``contents/pages`` directory.
+
+It's strongly suggested to name the banner file with a name such as 
+``banner.html`` to avoid to forget it.
 
 
 

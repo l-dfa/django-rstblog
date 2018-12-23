@@ -348,20 +348,20 @@ def load_article(request):
         
     return render( request, 'load_article.html' )
 
-
-def show(request, slug=''):
-    '''shows a reStructuredText file as html'''
-    #pdb.set_trace()
-    article = get_object_or_404(Article, published=True, slug=slug)
-    
-    # preaparing translations as [(language, slug), (language, slug), ...]
-    trans = article.get_translations()
-    translations = [(LANGUAGES.get(t.language), t.slug, t.language) for t in trans]
-    markup = ''
-
-    # preparing article content as html
+def article_as_html(article):
+    ''' preparing article content as html'''
+    adir = None
+    if article.atype == 'article':
+        adir = ARTICLES_DIR
+    elif article.atype == 'page':
+        adir = PAGES_DIR
+    else:
+        raise ValueError(f'{article.atype} is a type not supported (yet)')
+               
+        
+                                       
     try:
-        p = ARTICLES_DIR / article.file
+        p = adir / article.file
         infos = None
         file_content = get_file_content(p)
         result = separate(file_content.decode('utf-8'))
@@ -394,6 +394,57 @@ def show(request, slug=''):
             raise ValueError(f'{article.markup} is a markup language not supported (yet)')
     except:
         raise Http404()
+    return (infos, content, )
+
+def show(request, slug=''):
+    '''shows a reStructuredText file as html'''
+    #pdb.set_trace()
+    article = get_object_or_404(Article, published=True, slug=slug)
+    
+    # preaparing translations as [(language, slug), (language, slug), ...]
+    trans = article.get_translations()
+    translations = [(LANGUAGES.get(t.language), t.slug, t.language) for t in trans]
+    markup = ''
+
+    # preparing article content as html
+    infos, content = article_as_html(article)
+    
+    ##### START this lines moved to article_as_html / by ldfa, 2018-12-23 00:03:38
+    #try:
+    #    p = ARTICLES_DIR / article.file
+    #    infos = None
+    #    file_content = get_file_content(p)
+    #    result = separate(file_content.decode('utf-8'))
+    #    if result:
+    #        infos = docinfos(result[0])
+    #        content = result[1][:]
+    #    else:
+    #        content = file_content[:]
+    #    if ( article.markup == 'restructuredtext'
+    #         or p.suffix == SUFFIX.reST ):
+    #        markup = 'restructuredtext'
+    #        content = rstcontent2html(content)
+    #    elif ( article.markup == 'html'
+    #         or p.suffix == SUFFIX.html ):
+    #        markup = 'html'
+    #    elif ( article.markup == 'markdown'
+    #         or p.suffix == SUFFIX.markdown ):
+    #        markup = 'markdown'
+    #        content = markdown(
+    #            content,
+    #            extensions=[
+    #                'markdown.extensions.tables',
+    #                'markdown.extensions.footnotes',
+    #                'mdx_math', ],
+    #            extension_configs = {
+    #                'mdx_math': {
+    #                    'enable_dollar_delimiter': True, }, }
+    #            )   # to manage math expressions using https://www.mathjax.org/ (pip install python-markdown-math); 2018-10-26 ldfa
+    #    else:
+    #        raise ValueError(f'{article.markup} is a markup language not supported (yet)')
+    #except:
+    #    raise Http404()
+    ##### END   this lines moved to article_as_html
     
     # increments article counter, if fails probably due to concurrent writes: ignoring it
     try:
@@ -415,6 +466,7 @@ def index(request, category='', atype=''):
     ''' list articles '''
     
     #pdb.set_trace()
+    banner = None
     articles = None
     ctg = None
     home = ''         # if home=='home' it is blog home flag
@@ -424,6 +476,10 @@ def index(request, category='', atype=''):
     #pdb.set_trace()
     if category=='':
         if home:
+            try:
+                banner = Article.objects.get(title='banner', atype='page')
+            except:
+                pass
             articles = Article.objects.filter(translation_of__isnull=True, published=True, offer_home=True, atype=atype).order_by('-created')[:HOME_ITEMS]
         else:
             articles = Article.objects.filter(translation_of__isnull=True, published=True, atype=atype).order_by('-created')
@@ -440,6 +496,10 @@ def index(request, category='', atype=''):
         trans = article.get_translations()
         if len(trans) > 0:
             translations[article.title] = [(LANGUAGES.get(t.language), t.slug, ) for t in trans]
+    if banner:
+        banner_info, banner_content = article_as_html(banner)
+    else:
+        banner_info, banner_content = (None, None)
     
     #pdb.set_trace()
     data = { 'articles':     articles,
@@ -447,7 +507,8 @@ def index(request, category='', atype=''):
              'category': category,
              'atype': atype,
              'page_id': f'index {category} {atype}',
-             'home': home, }
+             'home': home,
+             'banner_content': banner_content, }
     if home:
         return render( request, 'blog_home.html', data )
     else:
